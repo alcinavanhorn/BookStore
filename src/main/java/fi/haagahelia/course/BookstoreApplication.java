@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 
 import fi.haagahelia.course.domain.Book;
 import fi.haagahelia.course.domain.BookRepository;
+import fi.haagahelia.course.domain.Category;
+import fi.haagahelia.course.domain.CategoryRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -20,12 +22,19 @@ public class BookstoreApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner bookDemo(BookRepository repository) {
+	public CommandLineRunner bookDemo(BookRepository repository, CategoryRepository crepository) {
 		return (args) -> {
-
+			log.info("add categories");
+			crepository.save(new Category("Fiction"));
+			crepository.save(new Category("Non-fiction"));
+			crepository.save(new Category("Satire"));
+			crepository.save(new Category("Fantasy"));
+			crepository.save(new Category("Sci-fi"));
+			crepository.save(new Category("Children's"));
+			
 			log.info("save a couple of books");
-			repository.save(new Book("Ernest Hemingway", "A Farewell to Arms", "1232323-21", 1929, 19.90));
-			repository.save(new Book("George Orwell", "Animal Farm", "2212343-5", 1945, 25.00));	
+			repository.save(new Book("Ernest Hemingway", "A Farewell to Arms", "1232323-21", 1929, 19.90, crepository.findByName("Fiction").get(0)));
+			repository.save(new Book("George Orwell", "Animal Farm", "2212343-5", 1945, 25.00, crepository.findByName("Satire").get(0)));	
 						
 			log.info("fetch all books");
 			for (Book book : repository.findAll()) {

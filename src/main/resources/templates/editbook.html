@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Book list</title>
+<title>Edit book</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
@@ -29,6 +29,16 @@
 			<label for="price">Price:</label>
 			<input type="text" th:field="*{price}" />
 			<div style="clear: both; display: block; height: 10px;"></div>
+					
+		  	<label for="category">Category:</label>
+			 <select id="clist" th:field="*{category}" class="form-control">
+       			<option 
+	       			th:each="category: ${categories}" 
+	       			th:value="${category.categoryid}" 
+	       			th:text="${category.name}">
+	       		</option>
+    		</select>
+    		<div style="clear: both; display: block; height: 10px;"></div>
 			
 			<input type="submit" value="Save"></input> 
 		</form>
