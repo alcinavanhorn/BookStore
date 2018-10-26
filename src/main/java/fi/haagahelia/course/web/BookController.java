@@ -22,6 +22,12 @@ public class BookController {
 	@Autowired
 	private CategoryRepository crepository; 
 
+	//Login
+	 @RequestMapping(value="/login")
+	    public String login() {	
+	        return "login";
+	    }	
+	 
 	//Show all books
     @RequestMapping(value="/booklist")
     public String bookList(Model model) {	
